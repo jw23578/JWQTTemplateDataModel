@@ -1,9 +1,9 @@
 #ifndef STRINGANDINTOBJECT_H
 #define STRINGANDINTOBJECT_H
 
-#include <dataobjectinterface.h>
+#include <jwqtobjectinterface.h>
 
-class StringAndIntObject : public DataObjectInterface
+class StringAndIntObject : public JWQTObjectInterface
 {
     Q_OBJECT
     JWQT_PROPERTY(QString, id, Id, "")

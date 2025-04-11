@@ -19,7 +19,7 @@ qt_add_qml_module(appJWQTTemplateModel
         Main.qml
         SOURCES  jwqttemplatemodelinterface.h
         SOURCES jwqtmodelinterface.cpp jwqtmodelinterface.h
-        SOURCES dataobjectinterface.cpp dataobjectinterface.h
+        SOURCES jwqtobjectinterface.cpp jwqtobjectinterface.h
         SOURCES jwqt_macros.h
         SOURCES  jwqttemplatemodel.h
         SOURCES  indexedpointercontainer.h

@@ -1,5 +1,5 @@
 #include "jwqtmodelinterface.h"
-#include "dataobjectinterface.h"
+#include "jwqtobjectinterface.h"
 #include <QQmlContext>
 
 bool JWQTModelInterface::first(true);
@@ -10,7 +10,7 @@ void JWQTModelInterface::init()
     if (first)
     {
         first = false;
-        qmlRegisterType<DataObjectInterface>("DataObjectInterface", 1, 0, "DataObjectInterface");
+        qmlRegisterType<JWQTObjectInterface>("DataObjectInterface", 1, 0, "DataObjectInterface");
     }
 }
 

@@ -1,5 +1,5 @@
 #include "jwqttemplatemodelinterface.h"
-#include "dataobjectinterface.h"
+#include "jwqtobjectinterface.h"
 
 template <class T>
 JWQTTemplateModelInterface<T>::JWQTTemplateModelInterface(QQmlApplicationEngine &engine,

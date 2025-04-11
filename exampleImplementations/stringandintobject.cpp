@@ -2,10 +2,10 @@
 #include <QUuid>
 
 StringAndIntObject::StringAndIntObject(QObject *parent)
-    : DataObjectInterface{parent}
+    : JWQTObjectInterface{parent}
 {}
 
-StringAndIntObject::StringAndIntObject(const QString &name, const int &age): DataObjectInterface(0),
+StringAndIntObject::StringAndIntObject(const QString &name, const int &age): JWQTObjectInterface(0),
     m_id(QUuid::createUuid().toString()),
     m_name(name),
     m_age(age)

@@ -1,7 +1,7 @@
-#include "dataobjectinterface.h"
+#include "jwqtobjectinterface.h"
 #include <QQmlEngine>
 
-DataObjectInterface::DataObjectInterface(QObject *parent)
+JWQTObjectInterface::JWQTObjectInterface(QObject *parent)
     : QObject{parent}
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
