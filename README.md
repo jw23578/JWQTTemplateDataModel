@@ -1,1 +1,1 @@
-# JWQTTemplateDataModel
+# JWQTTemplateModel
