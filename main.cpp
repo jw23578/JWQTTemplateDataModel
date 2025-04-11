@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("JWQTTemplateDataModel", "Main");
+    engine.loadFromModule("JWQTTemplateModel", "Main");
 
     return app.exec();
 }
