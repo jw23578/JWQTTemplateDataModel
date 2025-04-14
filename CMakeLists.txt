@@ -26,6 +26,7 @@ qt_add_qml_module(appJWQTTemplateModel
         SOURCES exampleImplementations/stringandintobject.h exampleImplementations/stringandintobject.cpp
         SOURCES
         SOURCES
+        SOURCES jwqtidobjectinterface.h jwqtidobjectinterface.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

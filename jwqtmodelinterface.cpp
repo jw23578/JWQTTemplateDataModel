@@ -107,9 +107,23 @@ int JWQTModelInterface::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-
-void JWQTModelInterface::deleteById(const QString &id)
+void JWQTModelInterface::removeByIndex(const size_t index)
 {
-    internalDeleteById(id);
-    setCount(size());
+    internalRemoveByIndex(index);
+}
+
+void JWQTModelInterface::filter(const QString &needle)
+{
+    internalFilter(needle);
+}
+
+void JWQTModelInterface::clear()
+{
+    if (!size())
+    {
+        return;
+    }
+    beginResetModel();
+    internalClear();
+    endResetModel();
 }

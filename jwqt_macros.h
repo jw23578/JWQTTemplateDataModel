@@ -1,6 +1,8 @@
 #ifndef JWQT_MACROS_H
 #define JWQT_MACROS_H
 
+#define JWQT_SINGLE_ARG2(a, b) a, b
+
 #define JWQT_PROPERTY(type, name, uppercasename, defaultvalue) \
 private: \
     type m_##name = {defaultvalue}; \

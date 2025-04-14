@@ -1,8 +1,8 @@
 #include "jwqttemplatemodelinterface.h"
 #include "jwqtobjectinterface.h"
 
-template <class T>
-JWQTTemplateModelInterface<T>::JWQTTemplateModelInterface(QQmlApplicationEngine &engine,
+template <class T, class IDType>
+JWQTTemplateModelInterface<T, IDType>::JWQTTemplateModelInterface(QQmlApplicationEngine &engine,
                                           const QString &modelName,
                                           const QString &objectName,
                                           const DirectionType direction):
@@ -10,15 +10,15 @@ JWQTTemplateModelInterface<T>::JWQTTemplateModelInterface(QQmlApplicationEngine 
 {
 }
 
-template<class T>
-JWQTTemplateModelInterface<T>::JWQTTemplateModelInterface(const QString &objectName,
+template <class T, class IDType>
+JWQTTemplateModelInterface<T, IDType>::JWQTTemplateModelInterface(const QString &objectName,
                                           const DirectionType direction):
     JWQTModelInterface(objectName, direction)
 {
 }
 
-template <class T>
-QVariant JWQTTemplateModelInterface<T>::data(const QModelIndex &index, int role) const
+template <class T, class IDType>
+QVariant JWQTTemplateModelInterface<T, IDType>::data(const QModelIndex &index, int role) const
 {
     QVariant result;
     int row(getDirection() == reverse ? size() - 1 - index.row() : index.row());
@@ -29,8 +29,8 @@ QVariant JWQTTemplateModelInterface<T>::data(const QModelIndex &index, int role)
     return QVariant::fromValue<QObject *>(internalGetObject(static_cast<size_t>(row)));
 }
 
-template <class T>
-bool JWQTTemplateModelInterface<T>::append(T *object)
+template <class T, class IDType>
+bool JWQTTemplateModelInterface<T, IDType>::append(T *object)
 {
     if (!canAppend(object))
     {
@@ -51,38 +51,26 @@ bool JWQTTemplateModelInterface<T>::append(T *object)
     return true;
 }
 
-template<class T>
-void JWQTTemplateModelInterface<T>::removeByIndex(const size_t index)
-{
-    internalRemoveByIndex(index);
-}
-
-template<class T>
-void JWQTTemplateModelInterface<T>::clear()
-{
-    if (!size())
-    {
-        return;
-    }
-    beginResetModel();
-    internalClear();
-    endResetModel();
-}
-
-template<class T>
-const T &JWQTTemplateModelInterface<T>::get(size_t index) const
+template <class T, class IDType>
+const T &JWQTTemplateModelInterface<T, IDType>::get(size_t index) const
 {
     return *internalGetObject(index);
 }
 
-template<class T>
-const T &JWQTTemplateModelInterface<T>::operator[](const size_t index) const
+template <class T, class IDType>
+T *JWQTTemplateModelInterface<T, IDType>::getObject(size_t index) const
 {
     return internalGetObject(index);
 }
 
-template<class T>
-size_t JWQTTemplateModelInterface<T>::oneBubbleSort(bool withSwapUpdates, compareFunction cf)
+template <class T, class IDType>
+const T &JWQTTemplateModelInterface<T, IDType>::operator[](const size_t index) const
+{
+    return *internalGetObject(index);
+}
+
+template<class T, class IDType>
+size_t JWQTTemplateModelInterface<T, IDType>::oneBubbleSort(bool withSwapUpdates, compareFunction cf)
 {
     size_t swapped(0);
     for (size_t i(0); i < size() - 1; ++i)
@@ -98,28 +86,35 @@ size_t JWQTTemplateModelInterface<T>::oneBubbleSort(bool withSwapUpdates, compar
     return swapped;
 }
 
-template<class T>
-void JWQTTemplateModelInterface<T>::bubbleSort(bool withUpdatePerSort, bool withSwapUpdates, compareFunction cf)
+template<class T, class IDType>
+void JWQTTemplateModelInterface<T, IDType>::bubbleSort(bool withUpdatePerSort, bool withSwapUpdates, compareFunction cf)
 {
     if (!withUpdatePerSort && !withSwapUpdates)
     {
-        JWQTTemplateModelInterface<T>::beginResetModel();
+        JWQTTemplateModelInterface<T, IDType>::beginResetModel();
     }
     bool done(false);
     while (!done)
     {
         if (withUpdatePerSort)
         {
-            JWQTTemplateModelInterface<T>::beginResetModel();
+            JWQTTemplateModelInterface<T, IDType>::beginResetModel();
         }
         done = oneBubbleSort(withSwapUpdates, cf) == 0;
         if (withUpdatePerSort)
         {
-            JWQTTemplateModelInterface<T>::endResetModel();
+            JWQTTemplateModelInterface<T, IDType>::endResetModel();
         }
     }
     if (!withUpdatePerSort && !withSwapUpdates)
     {
-        JWQTTemplateModelInterface<T>::endResetModel();
+        JWQTTemplateModelInterface<T, IDType>::endResetModel();
     }
+}
+
+template<class T, class IDType>
+void JWQTTemplateModelInterface<T, IDType>::deleteById(const IDType &id)
+{
+    internalDeleteById(id);
+    setCount(size());
 }

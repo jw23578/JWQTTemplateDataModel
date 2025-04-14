@@ -24,6 +24,10 @@ class JWQTModelInterface : public QAbstractItemModel
     virtual QVariant customData(int row, int role) const;
 protected:
     bool notObjectData(const int row, const int role, QVariant &result) const;
+    virtual void internalRemoveByIndex(const size_t index) = 0;
+    virtual void internalClear() = 0;
+    virtual void internalFilter(const QString &needle) = 0;
+    virtual void swap(size_t i1, size_t i2, bool update) = 0;
 public:
     enum DirectionType
     {
@@ -34,8 +38,6 @@ private:
     const QString modelName;
     const QString objectName;
     const DirectionType direction;
-protected:
-    virtual void internalDeleteById(const QString &id) = 0;
 public:
 
     explicit JWQTModelInterface(QQmlApplicationEngine &engine,
@@ -54,7 +56,11 @@ public:
     int columnCount(const QModelIndex &parent) const override;
 
     virtual size_t size() const = 0;
-    Q_INVOKABLE void deleteById(const QString &id);
+
+    void clear();
+    void removeByIndex(const size_t index);
+
+    Q_INVOKABLE void filter(const QString &needle);
 };
 
 #endif // JWQTMODELINTERFACE_H
