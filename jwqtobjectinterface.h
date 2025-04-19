@@ -12,6 +12,7 @@ protected:
 public:
     explicit JWQTObjectInterface(QObject *parent = nullptr);
     virtual void handleNeedle(const QString &needle) {setNotInFilter(false);}
+    virtual bool hasPropertyWithValue(const QString &property, const QString &value) {return false;}
 
 signals:
 
